@@ -21,7 +21,7 @@ namespace CoreApiProject.Services
         {
             post.Tags?.ForEach(tag => tag.TagName = tag.TagName.ToLower());
 
-            await AddNewTags(post);
+            if(post.Tags != null) await AddNewTags(post);
             await _DbContext.Posts.AddAsync(post);
             var saved = await _DbContext.SaveChangesAsync();
             return saved > 0;

@@ -60,10 +60,13 @@ namespace CoreApiProject.IntegrationTest
             _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", await GetJwtAsync());
         }
 
-        protected async Task<PostResponse> CreatePostAsync(CreatePostRequest request)
+        protected async Task<Response<PostResponse>> CreatePostAsync(CreatePostRequest request)
         {
             var response = await _client.PostAsJsonAsync(ApiRoutes.Posts.Create, request);
-            return await response.Content.ReadAsAsync<PostResponse>();
+            
+            var far = await response.Content.ReadAsStringAsync();
+
+            return await response.Content.ReadAsAsync<Response<PostResponse>>();
         }
 
         private async Task<string> GetJwtAsync()

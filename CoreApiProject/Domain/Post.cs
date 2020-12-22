@@ -20,6 +20,6 @@ namespace CoreApiProject.Domain
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; }
 
-        public virtual List<PostTag> Tags { get; set; }
+        public virtual List<PostTag> Tags { get; set; } = new List<PostTag>();
     }
 }

@@ -102,14 +102,14 @@ namespace CoreApiProject.Controllers.V1
         public async Task<IActionResult> Create([FromBody] CreatePostRequest postRequest)
         {
             var postId = Guid.NewGuid();
-            var post = new Post { Id = postId, Name = postRequest.Name, UserId = HttpContext.GetUserId(), Tags = postRequest.Tags.Select(x => new PostTag { PostId = postId, TagName = x }).ToList() };
+            var post = new Post { Id = postId, Name = postRequest.Name, UserId = HttpContext.GetUserId(), Tags = postRequest.Tags?.Select(x => new PostTag { PostId = postId, TagName = x }).ToList() };
 
             await _PostService.CreatePostAsync(post);
 
             var location = _UriService.GetPostUri(post.Id.ToString());
 
 
-            var response = new PostResponse { Id = post.Id, Name = post.Name, Tags = post.Tags.Select(x => new TagResponse {Name = x.TagName })};
+            var response = new PostResponse { Id = post.Id, Name = post.Name, Tags = post.Tags?.Select(x => new TagResponse {Name = x.TagName })};
             return Created(location, new Response<PostResponse>(_mapper.Map<PostResponse>(post)));
         }
     }
