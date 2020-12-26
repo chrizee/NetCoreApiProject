@@ -35,7 +35,7 @@ namespace CoreApiProject.Controllers.V1
         }
 
         [HttpGet(ApiRoutes.Posts.GetAll)]
-        [Cached(600)]
+        //[Cached(600)]
         public async Task<IActionResult> GetAll([FromQuery] GetAllPostsQuery query, [FromQuery] PaginationQuery paginationQuery)
         {
             var paginationFilter = _mapper.Map<PaginationFilter>(paginationQuery);
@@ -53,7 +53,7 @@ namespace CoreApiProject.Controllers.V1
         }
 
         [HttpGet(ApiRoutes.Posts.Get)]
-        [Cached(600)]
+        //[Cached(600)]
         public async Task<IActionResult> Get([FromRoute] Guid postId)
         {
             var post = await _PostService.GetByIdAsync(postId);
